@@ -453,6 +453,9 @@ export async function createWindows() {
 
     mainWin.webContents.on("did-finish-load", () => {
         splash.destroy();
+        // Doing this works around the gpu process crash when showing a hidden window on wayland with nvidia
+        mainWin!.show();
+        mainWin!.hide();
 
         if (!startMinimized || isDeckGameMode) mainWin!.show();
 
